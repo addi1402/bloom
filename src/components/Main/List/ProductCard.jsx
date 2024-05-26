@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/slices/productSlice";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function ProductCard({ product }) {
   // Purify the markup description
@@ -31,15 +32,28 @@ export default function ProductCard({ product }) {
     toast({
       title: "Item added to basket.",
       description: "You're one step closer to completing your purchase.",
-      action: <ToastAction altText="Check Basket" onClick={() => {
-        router.push('/cart/')
-      }}>Check Basket</ToastAction>,
+      action: (
+        <ToastAction
+          altText="Check Basket"
+          onClick={() => {
+            router.push("/cart/");
+          }}
+        >
+          Check Basket
+        </ToastAction>
+      ),
     });
     dispatch(addToCart({ ...product, description: sanitizedDescription }));
   }
 
   return (
-    <Card variant="outline" size="sm" position="relative" borderRadius='8px' overflow='hidden'>
+    <Card
+      variant="outline"
+      size="sm"
+      position="relative"
+      borderRadius="8px"
+      overflow="hidden"
+    >
       <Image
         src={"/placeholder.svg"}
         height="50"
@@ -92,14 +106,16 @@ export default function ProductCard({ product }) {
           variant="filled"
           clickEvent={handleAddToCart}
         />
-        <CustomButton text="Buy Now" variant="outline" />
+        <Link href={`/form/edit/${product.id}`}>
+          <CustomButton text="Edit" variant="outline" />
+        </Link>
       </CardFooter>
 
       <IconButton
         variant="filled"
         color="#FF6961"
-        size='sm'
-        bg='white'
+        size="sm"
+        bg="white"
         aria-label="Like"
         fontSize="18px"
         icon={like ? <AiFillHeart /> : <AiOutlineHeart />}

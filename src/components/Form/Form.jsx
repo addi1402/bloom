@@ -54,10 +54,12 @@ export default function Form() {
 
     if (p) {
       dispatch(editProduct({ ...newProd, id: p.id }));
+      toast({ description: "Product edited successfully." });
     } else {
       dispatch(addProduct(newProd));
+      toast({ description: "New product added successfully." });
     }
-    toast({ description: "Product submitted." });
+    
     router.push("/");
   }
 
