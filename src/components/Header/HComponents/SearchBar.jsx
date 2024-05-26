@@ -16,19 +16,21 @@ export default function Search() {
   }, [dispatch, input]);
 
   return (
-    <InputGroup size="sm">
-      <InputLeftElement pointerEvents="none">
-        <LuSearch className="text-gray-500" />
-      </InputLeftElement>
-      <Input
-        type="text"
-        placeholder="Search Products..."
-        borderRadius="5px"
-        autoComplete="off"
-        focusBorderColor="black"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-    </InputGroup>
+    <div className="hidden sm:block">
+      <InputGroup size="sm">
+        <InputLeftElement pointerEvents="none">
+          <LuSearch className="text-gray-500" />
+        </InputLeftElement>
+        <Input
+          type="text"
+          placeholder="Search Products..."
+          borderRadius="5px"
+          autoComplete="off"
+          focusBorderColor="black"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+      </InputGroup>
+    </div>
   );
 }

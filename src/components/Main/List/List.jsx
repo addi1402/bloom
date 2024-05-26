@@ -96,7 +96,7 @@ export default function ProductList({ sort, setSort }) {
   return (
     <main className="mt-6">
       {loading ? (
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {Array.from({ length: 12 }, (current, index) => (
             <div className="flex flex-col space-y-3" key={index}>
               <Skeleton className="h-64 rounded-sm" />
@@ -119,7 +119,7 @@ export default function ProductList({ sort, setSort }) {
           next={loadMoreData}
           hasMore={hasMore}
         >
-          <div className="grid grid-cols-4 gap-6 mb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-20">
             {filteredData.map((product) => (
               <ProductCard key={product.id} product={{ ...product }} />
             ))}
