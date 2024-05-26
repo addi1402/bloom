@@ -1,7 +1,6 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -75,7 +74,7 @@ export default function ProductList({ sort, setSort }) {
 
   return (
     <main className="mt-6">
-      <Toaster />
+     
       {loading ? (
         <div className="grid grid-cols-4 gap-6">
           {Array.from({ length: 12 }, (current, index) => (

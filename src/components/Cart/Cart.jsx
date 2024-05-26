@@ -4,13 +4,11 @@ import CartCard from "./CartCard";
 import { CustomButton } from "../Button/Button";
 import { LuPartyPopper } from "react-icons/lu";
 import Link from "next/link";
-import { Toaster } from "../ui/toaster";
 
 export default function Cart() {
   const cartData = useSelector((store) => store.product.cart);
   return (
     <main className="mt-6">
-      <Toaster/>
       <div className="mt-4 flex-col gap-6 mb-10 w-2/4 p-6 border border-slate-200 rounded-md">
         <h3 className="font-bold text-lg mb-4">Your Basket</h3>
 

@@ -5,7 +5,6 @@ import { LuTrash2 } from "react-icons/lu";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "@/redux/slices/productSlice";
 import { toast } from "../ui/use-toast";
-import { Toaster } from "../ui/toaster";
 
 export default function CartCard({ item }) {
     const dispatch = useDispatch();
