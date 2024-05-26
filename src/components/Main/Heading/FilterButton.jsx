@@ -1,3 +1,4 @@
+"use client";
 import { LuListFilter } from "react-icons/lu";
 import { Button } from "@chakra-ui/react";
 import {
@@ -9,8 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
-export default function Filter() {
-  const [sort, setSort] = useState('featured');
+export default function Filter({ sort, setSort }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
