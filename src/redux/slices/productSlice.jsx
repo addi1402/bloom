@@ -15,7 +15,19 @@ let fetchProducts = createAsyncThunk("product/getProducts", async function () {
     let result = await axios.get(
       "https://65d5af42f6967ba8e3bc35a3.mockapi.io/blogs/v1/articles"
     );
-    return result.data;
+
+    // Replace empty strings with null
+    const finalData = result.data.map((product) => {
+      const updatedProduct = { ...product };
+      Object.keys(updatedProduct).forEach((k) => {
+        if (updatedProduct[k] === "") {
+          updatedProduct[k] = null;
+        }
+      });
+      return updatedProduct;
+    });
+
+    return finalData;
   } catch (err) {
     throw err;
   }

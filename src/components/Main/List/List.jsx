@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import ProductCard from "./ProductCard";
 
 export default function ProductList({ sort, setSort }) {
   // Store Data
@@ -76,7 +77,7 @@ export default function ProductList({ sort, setSort }) {
     <main className="mt-6">
       <Toaster />
       {loading ? (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-6">
           {Array.from({ length: 12 }, (current, index) => (
             <div className="flex flex-col space-y-3" key={index}>
               <Skeleton className="h-64 rounded-sm" />
@@ -94,9 +95,9 @@ export default function ProductList({ sort, setSort }) {
           products again. Give it another shot.
         </p>
       ) : (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-6">
           {filteredData.map((product) => (
-            <p key={product.id}>{product.name ? product.name : "Undefined"}</p>
+            <ProductCard key={product.id} product={{...product}}/>
           ))}
         </div>
       )}
