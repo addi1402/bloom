@@ -95,7 +95,7 @@ export default function ProductList({ sort, setSort }) {
           products again. Give it another shot.
         </p>
       ) : (
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-4 gap-6 mb-20">
           {filteredData.map((product) => (
             <ProductCard key={product.id} product={{...product}}/>
           ))}

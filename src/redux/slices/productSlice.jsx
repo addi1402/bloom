@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Initial product state
 const initialProduct = {
+  originalData: [], // To store the original list of products
   data: [],
   cart: [],
   loading: false,
@@ -41,16 +42,23 @@ let productSlice = createSlice({
     // Add Product
     addProduct: (state, action) => {
       state.data = [...state.data, action.payload];
+      state.originalData = [...state.originalData, action.payload];
     },
     // Delete Product
     deleteProduct: (state, action) => {
       state.data = state.data.filter(
         (product) => product.id !== action.payload
       );
+      state.originalData = state.originalData.filter(
+        (product) => product.id !== action.payload
+      );
     },
     // Edit Product
     editProduct: (state, action) => {
       state.data = state.data.map((product) =>
+        product.id === action.payload.id ? action.payload : product
+      );
+      state.originalData = state.originalData.map((product) =>
         product.id === action.payload.id ? action.payload : product
       );
     },
@@ -69,7 +77,13 @@ let productSlice = createSlice({
     },
     // Search Product
     searchProduct: (state, action) => {
-      state.data = state.data.filter((i) => i.name.startsWith(action.payload));
+      if (action.payload === "") {
+        state.data = state.originalData;
+      } else {
+        state.data = state.originalData.filter((i) =>
+          i.productName?.toLowerCase().startsWith(action.payload.toLowerCase())
+        );
+      }
     },
   },
   extraReducers: (builder) => {
@@ -81,6 +95,7 @@ let productSlice = createSlice({
       })
       // Complete
       .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.originalData = action.payload;
         state.data = action.payload;
         state.loading = false;
         state.error = null;

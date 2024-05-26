@@ -11,18 +11,35 @@ import DOMPurify from "dompurify";
 import Image from "next/image";
 import { LuUser2 } from "react-icons/lu";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "@/redux/slices/productSlice";
-import { useRouter } from "next/navigation";
 import { CustomButton } from "@/components/Button/Button";
+import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/slices/productSlice";
+import { useState } from "react";
 
 export default function ProductCard({ product }) {
   // Purify the markup description
   const sanitizedDescription = DOMPurify.sanitize(product.description);
+  const router = useRouter();
+  const [like, setLike] = useState(false);
+  const dispatch = useDispatch();
+
+  // Handle Add to Cart Click
+  function handleAddToCart() {
+    toast({
+      title: "Item added to basket.",
+      description: "You're one step closer to completing your purchase.",
+      action: <ToastAction altText="Check Basket" onClick={() => {
+        router.push('/cart/')
+      }}>Check Basket</ToastAction>,
+    });
+    dispatch(addToCart({ ...product, description: sanitizedDescription }));
+  }
 
   return (
-    <Card variant="outline" size="sm" position="relative">
+    <Card variant="outline" size="sm" position="relative" borderRadius='8px' overflow='hidden'>
       <Image
         src={"/placeholder.svg"}
         height="50"
@@ -70,9 +87,28 @@ export default function ProductCard({ product }) {
         )}
       </CardBody>
       <CardFooter className="flex gap-2">
-        <CustomButton text="Add To Cart" variant="filled" />
-        <CustomButton text="Buy Now" variant="outline"/>
+        <CustomButton
+          text="Add To Cart"
+          variant="filled"
+          clickEvent={handleAddToCart}
+        />
+        <CustomButton text="Buy Now" variant="outline" />
       </CardFooter>
+
+      <IconButton
+        variant="filled"
+        color="#FF6961"
+        size='sm'
+        bg='white'
+        aria-label="Like"
+        fontSize="18px"
+        icon={like ? <AiFillHeart /> : <AiOutlineHeart />}
+        onClick={() => setLike((like) => !like)}
+        position="absolute"
+        top="2"
+        right="2"
+        zIndex="1"
+      />
     </Card>
   );
 }
