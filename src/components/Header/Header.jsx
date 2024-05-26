@@ -7,7 +7,7 @@ import Search from "./HComponents/SearchBar";
 
 export default function Header() {
   return (
-    <header className="px-20 py-3 flex justify-between shadow-sm">
+    <header className="flex justify-between shadow-sm py-3 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
       <Logo />
       <div className="flex gap-2">
         <Search />
