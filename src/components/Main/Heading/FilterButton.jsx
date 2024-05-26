@@ -7,8 +7,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState } from "react";
 
-export default function Filter({ sort, setSort }) {
+export default function Filter() {
+  const [sort, setSort] = useState('featured');
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
