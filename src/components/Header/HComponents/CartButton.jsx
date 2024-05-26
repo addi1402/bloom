@@ -3,9 +3,8 @@ import Link from "next/link";
 import { LuShoppingBasket } from "react-icons/lu";
 
 export default function CartButton() {
-  // TODO: Add link to Cart Page
   return (
-    <Link href="">
+    <Link href="/cart/">
       <CustomButton
         text="Basket"
         icon={<LuShoppingBasket />}
