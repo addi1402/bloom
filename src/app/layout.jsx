@@ -3,6 +3,7 @@ import "./globals.css";
 import Wrapper from "./wrapper";
 import Footer from "@/components/Footer/Footer";
 import { GeistSans } from "geist/font/sans";
+import { Test } from "./test";
 
 export const metadata = {
   title: "Bloom",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={GeistSans.className}>
         <Wrapper>
+          <Test />
           <Header />
           {children}
           <Footer />
