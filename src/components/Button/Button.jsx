@@ -18,10 +18,14 @@ export function CustomButton({
       variant={isOutline ? "outline" : "solid"}
       width="fit-content"
       size="sm"
-      _hover={isOutline ? { color: "black", bg: "#f3f4f6" } : { bg: "black", opacity: 0.8 }}
+      _hover={
+        isOutline
+          ? { color: "black", bg: "#f3f4f6" }
+          : { bg: "black", opacity: 0.8 }
+      }
       _focus={{ boxShadow: "none" }}
       fontSize={size}
-      fontWeight='500'
+      fontWeight="500"
       bg={!isOutline && "black"}
       color={!isOutline && "white"}
       className={className}

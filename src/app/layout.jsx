@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
         <Wrapper>
           <Test />
           <Header />
-          {children}
+          <main className="flex-grow">{children}</main>
           <Footer />
         </Wrapper>
       </body>

@@ -6,8 +6,10 @@ import store from "@/redux/store";
 
 export default function Wrapper({ children }) {
   return (
-    <Provider store={store}>
-      <ChakraProvider>{children}</ChakraProvider>
-    </Provider>
+    <div className="flex flex-col min-h-screen">
+      <Provider store={store}>
+        <ChakraProvider>{children}</ChakraProvider>
+      </Provider>
+    </div>
   );
 }
