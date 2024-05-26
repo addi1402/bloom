@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Box,
   FormControl,
@@ -56,11 +55,11 @@ export default function Form() {
     };
 
     if (p) {
-      dispatch(editProduct({ ...newProd, id: product.id }));
+      dispatch(editProduct({ ...newProd, id: p.id }));
     } else {
       dispatch(addProduct(newProd));
     }
-    toast({description: 'Product submitted.'})
+    toast({ description: "Product submitted." });
     router.push("/");
   }
 
@@ -77,6 +76,7 @@ export default function Form() {
             value={prodName}
             autoComplete="off"
             onChange={(e) => setProdName(e.target.value)}
+            focusBorderColor="black"
           />
         </div>
 
@@ -89,6 +89,7 @@ export default function Form() {
             placeholder="Enter Product Description"
             value={prodDescription}
             onChange={setProdDescription}
+            focusBorderColor="black"
           />
         </div>
 
@@ -100,6 +101,7 @@ export default function Form() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             autoComplete="off"
+            focusBorderColor="black"
           />
         </div>
 
@@ -113,6 +115,7 @@ export default function Form() {
               value={prodPrice}
               onChange={(e) => setProdPrice(e.target.value)}
               autoComplete="off"
+              focusBorderColor="black"
             />
           </InputGroup>
         </div>
