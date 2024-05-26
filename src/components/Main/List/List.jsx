@@ -5,12 +5,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "./ProductCard";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function ProductList({ sort, setSort }) {
   // Store Data
   const { data, loading, error } = useSelector((store) => store.product);
   // Filtered Data
   const [filteredData, setFilteredData] = useState([]);
+  const [hasMore, setHasMore] = useState(true); // flag
+  const [currentPage, setCurrentPage] = useState(1); // page
+  const itemsPerPage = 8; // item count
   const { toast } = useToast();
 
   // Error Handling
@@ -66,15 +70,31 @@ export default function ProductList({ sort, setSort }) {
     return sortData(sort, cleanedData);
   }
 
+  // Function to load more data
+  const loadMoreData = () => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const newData = filterData(sort, data).slice(start, end);
+    setFilteredData((prevData) => [...prevData, ...newData]);
+    setCurrentPage((prevPage) => prevPage + 1);
+    if (end >= data.length) {
+      setHasMore(false);
+    }
+  };
+
   useEffect(() => {
     const cleanedData = data.map(cleanDataItem);
     const sortedData = sortData(sort, cleanedData);
-    setFilteredData(sortedData);
+    const start = 0;
+    const end = itemsPerPage;
+    const initialData = sortedData.slice(start, end);
+    setFilteredData(initialData);
+    setHasMore(data.length > itemsPerPage);
+    setCurrentPage(2);
   }, [data, sort]);
 
   return (
     <main className="mt-6">
-     
       {loading ? (
         <div className="grid grid-cols-4 gap-6">
           {Array.from({ length: 12 }, (current, index) => (
@@ -94,11 +114,17 @@ export default function ProductList({ sort, setSort }) {
           products again. Give it another shot.
         </p>
       ) : (
-        <div className="grid grid-cols-4 gap-6 mb-20">
-          {filteredData.map((product) => (
-            <ProductCard key={product.id} product={{...product}}/>
-          ))}
-        </div>
+        <InfiniteScroll
+          dataLength={filteredData.length}
+          next={loadMoreData}
+          hasMore={hasMore}
+        >
+          <div className="grid grid-cols-4 gap-6 mb-20">
+            {filteredData.map((product) => (
+              <ProductCard key={product.id} product={{ ...product }} />
+            ))}
+          </div>
+        </InfiniteScroll>
       )}
     </main>
   );
