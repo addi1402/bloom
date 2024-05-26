@@ -3,19 +3,17 @@ import {
   Box,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   InputGroup,
   InputLeftAddon,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { CustomButton } from "../Button/Button";
 import { toast } from "../ui/use-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, editProduct } from "@/redux/slices/productSlice";
+import Quill from "./Quill";
 
 export default function Form() {
   // Params
@@ -82,15 +80,7 @@ export default function Form() {
 
         <div>
           <FormLabel fontSize="0.9rem">Product Description</FormLabel>
-          <ReactQuill
-            className="quill-custom"
-            theme="snow"
-            size="sm"
-            placeholder="Enter Product Description"
-            value={prodDescription}
-            onChange={setProdDescription}
-            focusBorderColor="black"
-          />
+          <Quill prodDescription={prodDescription} setProdDescription={setProdDescription}/>
         </div>
 
         <div>
