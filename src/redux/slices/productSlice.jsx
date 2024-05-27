@@ -43,6 +43,7 @@ let productSlice = createSlice({
     addProduct: (state, action) => {
       state.data = [...state.data, action.payload];
       state.originalData = [...state.originalData, action.payload];
+      console.log("Afer product is added: ",state.data);
     },
     // Delete Product
     deleteProduct: (state, action) => {
@@ -61,6 +62,7 @@ let productSlice = createSlice({
       state.originalData = state.originalData.map((product) =>
         product.id === action.payload.id ? action.payload : product
       );
+      console.log("After edited: ",state.data);
     },
     // Add to Cart
     addToCart: (state, action) => {

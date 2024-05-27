@@ -19,8 +19,9 @@ import Image from "next/image";
 export default function Form() {
   // Params
   const params = useParams();
+  const decodedId = decodeURIComponent(params.id); // Remove %20 from string
   const p = useSelector((store) => store.product.data)
-    .filter((p) => p.id === params?.id)
+    .filter((p) => p.id === decodedId)
     .at(0);
 
   // Routers
@@ -28,9 +29,7 @@ export default function Form() {
   const dispatch = useDispatch();
 
   // States
-  const [prodName, setProdName] = useState(
-    p ? p.productName : ""
-  );
+  const [prodName, setProdName] = useState(p ? p.productName : "");
   const [prodDescription, setProdDescription] = useState(
     p ? p.description : ""
   );
@@ -83,7 +82,9 @@ export default function Form() {
 
   return (
     <Box borderWidth="1px" borderRadius="md" className="px-6 py-6 max-w-2xl">
-      <h3 className="font-bold text-lg mb-4">{p?"Edit Product Details":"Add Product Details"}</h3>
+      <h3 className="font-bold text-lg mb-4">
+        {p ? "Edit Product Details" : "Add Product Details"}
+      </h3>
 
       <FormControl isRequired className="flex flex-col gap-4">
         <div>

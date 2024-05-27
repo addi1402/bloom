@@ -11,7 +11,8 @@ import DOMPurify from "dompurify";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 
 export default function Product() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = decodeURIComponent(params.id);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -53,7 +54,7 @@ export default function Product() {
           className="rounded-md w-full"
         />
       </div>
-      <div className="flex flex-col justify-between lg:w-1/2">
+      <div className="flex flex-col justify-between lg:w-2/3">
         <div className="flex flex-col gap-4">
           <h3 className="font-bold text-3xl">
             {item?.productName ?? "Unknown Product"}
