@@ -9,7 +9,7 @@ import { toast } from "../ui/use-toast";
 export default function CartCard({ item }) {
   const dispatch = useDispatch();
   return (
-    <div className="flex flex-col md:flex-row justify-between w-full mb-4 p-4 border rounded-md">
+    <div className="flex flex-col md:flex-row justify-between w-full mb-1 p-4 border rounded-md">
       <div className="flex gap-4 w-full md:w-3/4">
         <Image
           src={"/placeholder.svg"}

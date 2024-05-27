@@ -8,9 +8,9 @@ import Link from "next/link";
 export default function Cart() {
   const cartData = useSelector((store) => store.product.cart);
   return (
-    <main className="mt-6 flex justify-center">
-      <div className="mt-4 flex flex-col gap-6 mb-10 w-full max-w-2xl p-6 border border-slate-200 rounded-md">
-        <h3 className="font-bold text-lg mb-4">Your Basket</h3>
+    <main className="mt-4 flex">
+      <div className=" flex flex-col gap-2 mb-10 w-full max-w-2xl p-6 border border-slate-200 rounded-md">
+        <h3 className="font-bold text-lg mb-6">Your Basket</h3>
 
         {cartData.map((item) => (
           <CartCard key={item.id} item={{ ...item }} />
