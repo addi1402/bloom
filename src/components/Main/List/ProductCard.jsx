@@ -16,7 +16,11 @@ import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/redux/slices/productSlice";
+import {
+  addToCart,
+  deleteProduct,
+  removeFromCart,
+} from "@/redux/slices/productSlice";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -28,7 +32,8 @@ export default function ProductCard({ product }) {
   const dispatch = useDispatch();
 
   // Handle Add to Cart Click
-  function handleAddToCart() {
+  function handleAddToCart(e) {
+    e.stopPropagation();
     toast({
       title: "Item added to basket.",
       description: "You're one step closer to completing your purchase.",
@@ -46,6 +51,16 @@ export default function ProductCard({ product }) {
     dispatch(addToCart({ ...product, description: sanitizedDescription }));
   }
 
+  function handleDelete(e) {
+    e.stopPropagation();
+    toast({ description: "Product deleted." });
+    dispatch(deleteProduct(product.id));
+  }
+
+  function navigateToProduct(id){
+    router.push(`/product/${id}/`);
+  }
+
   return (
     <Card
       variant="outline"
@@ -53,6 +68,7 @@ export default function ProductCard({ product }) {
       position="relative"
       borderRadius="8px"
       overflow="hidden"
+      onClick={() => navigateToProduct(product.id)}
     >
       <Image
         src={"/placeholder.svg"}
@@ -83,7 +99,7 @@ export default function ProductCard({ product }) {
           </div>
 
           <div>
-            <span className="font-bold text-lg">
+            <span className="font-bold text-md">
               ${product.productPrice ?? "N/A"}
             </span>
           </div>
@@ -100,15 +116,22 @@ export default function ProductCard({ product }) {
           </p>
         )}
       </CardBody>
-      <CardFooter className="flex gap-2">
+      <CardFooter className="flex gap-2 justify-between">
         <CustomButton
           text="Add To Cart"
           variant="filled"
-          clickEvent={handleAddToCart}
+          clickEvent={(e) => handleAddToCart(e)}
         />
-        <Link href={`/form/edit/${product.id}`}>
-          <CustomButton text="Edit" variant="outline" />
-        </Link>
+        <div className="flex gap-2">
+          <Link href={`/form/edit/${product.id}`} onClick={(e) => e.stopPropagation()}>
+            <CustomButton text="Edit" variant="outline" />
+          </Link>
+          <CustomButton
+            text="Delete"
+            variant="outline"
+            clickEvent={(e) => handleDelete(e)}
+          />
+        </div>
       </CardFooter>
 
       <IconButton
@@ -119,7 +142,10 @@ export default function ProductCard({ product }) {
         aria-label="Like"
         fontSize="18px"
         icon={like ? <AiFillHeart /> : <AiOutlineHeart />}
-        onClick={() => setLike((like) => !like)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setLike((like) => !like);
+        }}
         position="absolute"
         top="2"
         right="2"
