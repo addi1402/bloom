@@ -1,4 +1,16 @@
+// next.config.mjs
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'cloudflare-ipfs.com',
+          port: '',
+          pathname: '/ipfs/**',
+        },
+      ],
+    },
+  }
+  
+  export default nextConfig

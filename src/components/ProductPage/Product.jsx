@@ -73,18 +73,20 @@ export default function Product() {
           </div>
           <div className="flex flex-col gap-1">
             <p className="font-bold text-md">Product Specifications:</p>
-            <UnorderedList className="text-neutral-500 text-sm">
+            <UnorderedList className=" text-sm">
               <ListItem>
                 <span className="font-semibold text-black">Created At: </span>
-                {item?.createdAt}
+                <span className="text-neutral-500">{item?.createdAt}</span>
               </ListItem>
               <ListItem>
                 <span className="font-semibold text-black">Seller: </span>
-                {item?.name ?? "Anonymous Seller"}
+                <span className="text-neutral-500">
+                  {item?.name ?? "Anonymous Seller"}
+                </span>
               </ListItem>
               <ListItem>
                 <span className="font-semibold text-black">ID: </span>
-                {id}
+                <span className="text-neutral-500">{id}</span>
               </ListItem>
             </UnorderedList>
           </div>

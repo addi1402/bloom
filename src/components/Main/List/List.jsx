@@ -93,14 +93,14 @@ export default function ProductList({ sort, setSort }) {
     setCurrentPage(2);
   }, [data, sort]);
 
-  if (data.length === 0) {
-    return (
-      <p>
-        Looks like the store is taking a nap. Come back later to see more
-        products or add your own!
-      </p>
-    );
-  }
+  // if (data.length === 0) {
+  //   return (
+  //     <p>
+  //       Looks like the store is taking a nap. Come back later to see more
+  //       products or add your own!
+  //     </p>
+  //   );
+  // }
 
   return (
     <main className="mt-6">

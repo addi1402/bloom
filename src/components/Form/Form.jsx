@@ -29,12 +29,12 @@ export default function Form() {
 
   // States
   const [prodName, setProdName] = useState(
-    p ? p.productName : "Unknown Product Name"
+    p ? p.productName : ""
   );
   const [prodDescription, setProdDescription] = useState(
     p ? p.description : ""
   );
-  const [username, setUsername] = useState(p ? p.name : "Anonymous Seller");
+  const [username, setUsername] = useState(p ? p.name : "");
   const [prodPrice, setProdPrice] = useState(p ? p.productPrice : "");
 
   // Avatars
@@ -83,7 +83,7 @@ export default function Form() {
 
   return (
     <Box borderWidth="1px" borderRadius="md" className="px-6 py-6 max-w-2xl">
-      <h3 className="font-bold text-lg mb-4">Product Details</h3>
+      <h3 className="font-bold text-lg mb-4">{p?"Edit Product Details":"Add Product Details"}</h3>
 
       <FormControl isRequired className="flex flex-col gap-4">
         <div>
