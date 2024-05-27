@@ -57,7 +57,7 @@ export default function ProductCard({ product }) {
     dispatch(deleteProduct(product.id));
   }
 
-  function navigateToProduct(id){
+  function navigateToProduct(id) {
     router.push(`/product/${id}/`);
   }
 
@@ -123,7 +123,10 @@ export default function ProductCard({ product }) {
           clickEvent={(e) => handleAddToCart(e)}
         />
         <div className="flex gap-2">
-          <Link href={`/form/edit/${product.id}`} onClick={(e) => e.stopPropagation()}>
+          <Link
+            href={`/form/edit/${product.id}`}
+            onClick={(e) => e.stopPropagation()}
+          >
             <CustomButton text="Edit" variant="outline" />
           </Link>
           <CustomButton

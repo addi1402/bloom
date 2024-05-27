@@ -14,6 +14,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, editProduct } from "@/redux/slices/productSlice";
 import Quill from "./Quill";
+import Image from "next/image";
 
 export default function Form() {
   // Params
@@ -36,6 +37,10 @@ export default function Form() {
   const [username, setUsername] = useState(p ? p.name : "Anonymous Seller");
   const [prodPrice, setProdPrice] = useState(p ? p.productPrice : "");
 
+  // Avatars
+  const [avatar, setAvatar] = useState(p ? p.avatar : "");
+  const [avatarFile, setAvatarFile] = useState(null);
+
   // Handle product add/update
   function handleSubmit() {
     if (!prodName || !prodDescription || !username || !prodPrice) {
@@ -44,7 +49,7 @@ export default function Form() {
     }
     const newProd = {
       productName: prodName,
-      avatar: "",
+      avatar: avatar,
       description: prodDescription,
       name: username,
       productPrice: prodPrice,
@@ -59,8 +64,21 @@ export default function Form() {
       dispatch(addProduct(newProd));
       toast({ description: "New product added successfully." });
     }
-    
+
     router.push("/");
+  }
+
+  // Handle file input change
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+        setAvatarFile(file);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   return (
@@ -82,7 +100,33 @@ export default function Form() {
 
         <div>
           <FormLabel fontSize="0.9rem">Product Description</FormLabel>
-          <Quill prodDescription={prodDescription} setProdDescription={setProdDescription}/>
+          <Quill
+            prodDescription={prodDescription}
+            setProdDescription={setProdDescription}
+          />
+        </div>
+
+        <div>
+          <FormLabel fontSize="0.9rem">Avatar</FormLabel>
+          <Input
+            type="file"
+            size="sm"
+            border="none"
+            padding="0"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          {avatar && (
+            <Box mt={2}>
+              <Image
+                src={avatar}
+                width="100"
+                height="100"
+                alt="Avatar Preview"
+                style={{ width: "100px", height: "100px", objectFit: "cover" }}
+              />
+            </Box>
+          )}
         </div>
 
         <div>

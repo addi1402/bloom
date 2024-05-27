@@ -93,7 +93,9 @@ export default function Product() {
           <div className="flex flex-col gap-1">
             <p className="font-bold text-md">Price:</p>
             <h3 className="text-3xl font-extrabold">
-              ${item?.productPrice ?? "N/A"}
+              {isNaN(Number(item?.productPrice)) || item?.productPrice === ""
+                ? "N/A"
+                : `$${Number(item.productPrice)}`}
             </h3>
           </div>
           <div className="flex gap-2">
