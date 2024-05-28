@@ -71,7 +71,7 @@ export default function ProductCard({ product }) {
       onClick={() => navigateToProduct(product.id)}
     >
       <Image
-        src={"/placeholder.svg"}
+        src={product.image ?? "/placeholder.svg"}
         height="50"
         width="50"
         className="w-full h-64 object-cover"

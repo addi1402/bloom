@@ -39,6 +39,8 @@ export default function Form() {
   // Avatars
   const [avatar, setAvatar] = useState(p ? p.avatar : "");
   const [avatarFile, setAvatarFile] = useState(null);
+  const [image, setImage] = useState(p ? p?.image : "");
+  const [imageFile, setImageFile] = useState(null);
 
   // Handle product add/update
   function handleSubmit() {
@@ -49,6 +51,7 @@ export default function Form() {
     const newProd = {
       productName: prodName,
       avatar: avatar,
+      image: image,
       description: prodDescription,
       name: username,
       productPrice: prodPrice,
@@ -75,6 +78,19 @@ export default function Form() {
       reader.onloadend = () => {
         setAvatar(reader.result);
         setAvatarFile(file);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // handle image change
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+        setImageFile(file);
       };
       reader.readAsDataURL(file);
     }
@@ -107,27 +123,61 @@ export default function Form() {
           />
         </div>
 
-        <div>
-          <FormLabel fontSize="0.9rem">Avatar</FormLabel>
-          <Input
-            type="file"
-            size="sm"
-            border="none"
-            padding="0"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-          {avatar && (
-            <Box mt={2}>
-              <Image
-                src={avatar}
-                width="100"
-                height="100"
-                alt="Avatar Preview"
-                style={{ width: "100px", height: "100px", objectFit: "cover" }}
-              />
-            </Box>
-          )}
+        <div className="flex">
+          <div>
+            <FormLabel fontSize="0.9rem">Avatar</FormLabel>
+            <Input
+              type="file"
+              size="sm"
+              border="none"
+              padding="0"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+            {avatar && (
+              <Box mt={2}>
+                <Image
+                  src={avatar}
+                  width="100"
+                  height="100"
+                  alt="Avatar Preview"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "cover",
+                  }}
+                />
+              </Box>
+            )}
+          </div>
+
+          <div>
+            <FormLabel fontSize="0.9rem">Product Image</FormLabel>
+            <Input
+              type="file"
+              size="sm"
+              border="none"
+              padding="0"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+
+            {image && (
+              <Box mt={2}>
+                <Image
+                  src={image}
+                  width="100"
+                  height="100"
+                  alt="Image Preview"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "cover",
+                  }}
+                />
+              </Box>
+            )}
+          </div>
         </div>
 
         <div>

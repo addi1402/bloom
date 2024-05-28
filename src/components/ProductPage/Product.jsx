@@ -47,11 +47,11 @@ export default function Product() {
     <div className="px-4 py-8 md:px-8 lg:px-20 lg:py-10 flex flex-col lg:flex-row gap-8">
       <div className="lg:w-1/3">
         <Image
-          src="/placeholder.svg"
+          src={item?.image ?? "/placeholder.svg"}
           width="400"
           height="400"
           alt="Placeholder Image"
-          className="rounded-md w-full"
+          className="rounded-md w-full "
         />
       </div>
       <div className="flex flex-col justify-between lg:w-2/3">
