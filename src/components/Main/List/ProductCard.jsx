@@ -69,6 +69,7 @@ export default function ProductCard({ product }) {
       borderRadius="8px"
       overflow="hidden"
       onClick={() => navigateToProduct(product.id)}
+      cursor='pointer'
     >
       <Image
         src={product.image ?? "/placeholder.svg"}
