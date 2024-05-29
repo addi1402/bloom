@@ -44,7 +44,7 @@ export default function Form() {
 
   // Handle product add/update
   function handleSubmit() {
-    if (!prodName || !prodDescription || !username || !prodPrice) {
+    if (!prodName || !prodDescription || !username || !prodPrice || !avatar || !image) {
       toast({ description: "Please fill out all the details." });
       return;
     }
