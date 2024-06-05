@@ -8,6 +8,7 @@ const initialProduct = {
   cart: [],
   loading: false,
   error: null,
+  message: "",
 };
 
 // Async thunk for middleware
@@ -43,7 +44,7 @@ let productSlice = createSlice({
     addProduct: (state, action) => {
       state.data = [...state.data, action.payload];
       state.originalData = [...state.originalData, action.payload];
-      console.log("Afer product is added: ",state.data);
+      console.log("Afer product is added: ", state.data);
     },
     // Delete Product
     deleteProduct: (state, action) => {
@@ -62,7 +63,7 @@ let productSlice = createSlice({
       state.originalData = state.originalData.map((product) =>
         product.id === action.payload.id ? action.payload : product
       );
-      console.log("After edited: ",state.data);
+      console.log("After edited: ", state.data);
     },
     // Add to Cart
     addToCart: (state, action) => {
@@ -81,10 +82,12 @@ let productSlice = createSlice({
     searchProduct: (state, action) => {
       if (action.payload === "") {
         state.data = state.originalData;
+        state.message = "";
       } else {
         state.data = state.originalData.filter((i) =>
-          i.productName?.toLowerCase().startsWith(action.payload.toLowerCase())
+          i.productName?.toLowerCase().includes(action.payload.toLowerCase())
         );
+        state.message = state.data.length === 0 ? "No Items Found" : "";
       }
     },
   },

@@ -9,7 +9,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function ProductList({ sort, setSort }) {
   // Store Data
-  const { data, loading, error } = useSelector((store) => store.product);
+  const { data, loading, error, message } = useSelector(
+    (store) => store.product
+  );
   // Filtered Data
   const [filteredData, setFilteredData] = useState([]);
   const [hasMore, setHasMore] = useState(true); // flag
@@ -93,14 +95,13 @@ export default function ProductList({ sort, setSort }) {
     setCurrentPage(2);
   }, [data, sort]);
 
-  // if (data.length === 0) {
-  //   return (
-  //     <p>
-  //       Looks like the store is taking a nap. Come back later to see more
-  //       products or add your own!
-  //     </p>
-  //   );
-  // }
+  if (message !== "") {
+    return (
+      <p className="mt-4">
+        Looks like we are fresh out of those! Try searching for something else!
+      </p>
+    );
+  }
 
   return (
     <main className="mt-6">
